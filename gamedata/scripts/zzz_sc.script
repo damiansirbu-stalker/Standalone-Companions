@@ -1,0 +1,441 @@
+--- zzz_sc: Standalone Companions core - spawn, teleport, permadeath, discovery
+
+-- ==================== IMPORTS ====================
+
+local data = zzz_sc_data
+
+-- ==================== CACHED GLOBALS ====================
+
+local pairs, pcall, alife, level, db = pairs, pcall, alife, level, db
+
+-- xlibs utilities
+local format = xstring.format
+
+-- ==================== LOGGING ====================
+
+local log = xlog.get_logger("SC.CORE", { outfile = "standalone_companions.log" })
+local function log_info(msg, ...)  if log then log.info(msg, ...)  end end
+local function log_debug(msg, ...) if log then log.debug(msg, ...) end end
+local function log_warn(msg, ...)  if log then log.warn(msg, ...)  end end
+local function log_error(msg, ...) if log then log.error(msg, ...) end end
+
+-- ==================== CONFIGURATION ====================
+
+local cfg = nil
+local mcm = nil
+
+local function init_config()
+    mcm = zzz_sc_mcm
+    if mcm and mcm.get_config then
+        cfg = {
+            get = function(key) return mcm.get_config(key) end
+        }
+    else
+        -- Fallback to defaults
+        cfg = {
+            get = function(key) return data.MCM_DEFAULTS[key] end
+        }
+    end
+end
+
+local function is_enabled(companion_id)
+    return cfg[companion_id .. "_enabled"] ~= false
+end
+
+local function is_auto_spawn(companion_id)
+    return cfg[companion_id .. "_auto_spawn"] ~= false
+end
+
+-- ==================== COMPANION LOOKUP ====================
+
+--[[
+    Find a companion's server entity by companion ID.
+    Uses get_story_se_object first (fast), falls back to section scan.
+
+    @param companion_id (string) - "anna", "mila", etc.
+    @return se_obj or nil
+]]
+function find_companion(companion_id)
+    local companion = data.COMPANIONS[companion_id]
+    if not companion then
+        log_error("Unknown companion: %s", companion_id)
+        return nil
+    end
+
+    local section = companion.section
+
+    -- Try story object first (fast path)
+    local se_obj = get_story_se_object(section)
+    if se_obj then
+        log_debug("Found %s via story_id: %s", companion_id, se_obj.id)
+        return se_obj
+    end
+
+    -- Fallback: scan by section (slower but reliable)
+    local sim = alife()
+    if not sim then return nil end
+    local found = nil
+    sim:iterate_objects(function(se)
+        if se:section_name() == section then
+            found = se
+            return true
+        end
+    end)
+    if found then
+        log_debug("Found %s via iterate_objects: %s", companion_id, found.id)
+        return found
+    end
+
+    log_debug("Companion %s not found in world", companion_id)
+    return nil
+end
+
+--[[
+    Check if companion exists in world.
+]]
+function companion_exists(companion_id)
+    return find_companion(companion_id) ~= nil
+end
+
+-- ==================== PERMADEATH ====================
+
+--[[
+    Check if companion is permanently dead.
+]]
+function is_dead(companion_id)
+    local se_actor = alife():actor()
+    if not se_actor then return false end
+
+    local key = data.PERMADEATH_SAVE_PREFIX .. companion_id
+    local val = se_load_var(se_actor.id, se_actor.m_game_vertex_id, key)
+    return val == true
+end
+
+--[[
+    Mark companion as permanently dead.
+]]
+function mark_dead(companion_id)
+    local se_actor = alife():actor()
+    if not se_actor then return end
+
+    local key = data.PERMADEATH_SAVE_PREFIX .. companion_id
+    se_save_var(se_actor.id, se_actor.m_game_vertex_id, key, true)
+
+    local companion = data.COMPANIONS[companion_id]
+    log_info("%s has died permanently", companion and companion.name or companion_id)
+end
+
+--[[
+    Reset companion death status (for debugging).
+]]
+function reset_death(companion_id)
+    local se_actor = alife():actor()
+    if not se_actor then return end
+
+    local key = data.PERMADEATH_SAVE_PREFIX .. companion_id
+    se_save_var(se_actor.id, se_actor.m_game_vertex_id, key, nil)
+    log_info("Reset death status for %s", companion_id)
+end
+
+-- ==================== SPAWN ====================
+
+--[[
+    Spawn companion at a specific position.
+
+    @return se_obj or nil
+]]
+function spawn_at(companion_id, pos, lvid, gvid)
+    local companion = data.COMPANIONS[companion_id]
+    if not companion then
+        log_error("Cannot spawn unknown companion: %s", companion_id)
+        return nil
+    end
+
+    if is_dead(companion_id) then
+        log_warn("Cannot spawn %s - permanently dead", companion_id)
+        return nil
+    end
+
+    if not lvid or lvid >= 4294967295 then
+        log_error("Cannot spawn %s - invalid lvid: %s", companion_id, lvid)
+        return nil
+    end
+
+    log_debug("Spawning %s at pos(%.1f,%.1f,%.1f) lvid:%s gvid:%s",
+        companion_id, pos.x, pos.y, pos.z, lvid, gvid)
+
+    local se_obj = alife():create(companion.section, pos, lvid, gvid)
+
+    if not se_obj then
+        log_error("Failed to spawn %s - alife():create returned nil", companion_id)
+        return nil
+    end
+
+    log_info("Spawned %s (id:%s)", companion.name, se_obj.id)
+    return se_obj
+end
+
+--[[
+    Spawn companion at their default location (smart terrain).
+]]
+function spawn_at_default(companion_id)
+    local companion = data.COMPANIONS[companion_id]
+    if not companion then return nil end
+
+    if is_dead(companion_id) then
+        log_debug("Skipping spawn for dead companion: %s", companion_id)
+        return nil
+    end
+
+    if companion_exists(companion_id) then
+        log_debug("%s already exists, skipping spawn", companion_id)
+        return nil
+    end
+
+    -- Try to find smart terrain
+    local smart = SIMBOARD and SIMBOARD.smarts_by_names[companion.default_smart]
+    if smart and xlevel.is_valid_lvid(smart) then
+        log_debug("Spawning %s at smart terrain: %s", companion_id, companion.default_smart)
+        return spawn_at(companion_id, smart.position, smart.m_level_vertex_id, smart.m_game_vertex_id)
+    end
+
+    -- Fallback: spawn at player if on same level
+    if level and level.name() == companion.default_level and db.actor then
+        local pos = db.actor:position()
+        pos.x = pos.x + 2
+        pos.z = pos.z + 2
+        log_debug("Spawning %s near player (smart not found)", companion_id)
+        return spawn_at(companion_id, pos, db.actor:level_vertex_id(), db.actor:game_vertex_id())
+    end
+
+    log_warn("Cannot spawn %s - smart terrain not found and not on default level", companion_id)
+    return nil
+end
+
+--[[
+    Spawn companion at player's current position.
+]]
+function spawn_at_player(companion_id)
+    if not db.actor then
+        log_warn("Cannot spawn at player - not in game")
+        return nil
+    end
+
+    local pos = db.actor:position()
+    pos.x = pos.x + 1
+    pos.z = pos.z + 1
+
+    return spawn_at(companion_id,
+        pos,
+        db.actor:level_vertex_id(),
+        db.actor:game_vertex_id())
+end
+
+-- ==================== TELEPORT ====================
+
+--[[
+    Teleport companion to player's position.
+    If companion doesn't exist, spawns them.
+]]
+function teleport_to_player(companion_id)
+    if not db.actor then
+        log_warn("Cannot teleport - not in game")
+        return false
+    end
+
+    local companion = data.COMPANIONS[companion_id]
+    if not companion then
+        log_error("Unknown companion: %s", companion_id)
+        return false
+    end
+
+    -- Check permadeath
+    if is_dead(companion_id) then
+        local msg = format(data.MESSAGES.companion_dead, {name = companion.display_name})
+        news_manager.send_tip(db.actor, msg, nil, nil, 10000)
+        return false
+    end
+
+    local se_obj = find_companion(companion_id)
+
+    if se_obj then
+        -- Teleport existing companion
+        local pos = db.actor:position()
+        pos.x = pos.x + 1
+        pos.z = pos.z + 1
+
+        TeleportObject(se_obj.id, pos, db.actor:level_vertex_id(), db.actor:game_vertex_id())
+
+        local msg = format(data.MESSAGES.teleported_to_player, {name = companion.display_name})
+        news_manager.send_tip(db.actor, msg, nil, nil, 5000)
+        log_info("Teleported %s to player", companion_id)
+        return true
+    end
+
+    -- Spawn at player
+    local new_obj = spawn_at_player(companion_id)
+    if not new_obj then
+        local msg = format(data.MESSAGES.spawn_failed, {name = companion.display_name})
+        news_manager.send_tip(db.actor, msg, nil, nil, 5000)
+        return false
+    end
+
+    local msg = format(data.MESSAGES.spawned_at_player, {name = companion.display_name})
+    news_manager.send_tip(db.actor, msg, nil, nil, 5000)
+    return true
+end
+
+--- Teleport player TO companion's position.
+--- @safety nil guard on se_obj, xlevel.get_level_id handles game_graph internally
+function teleport_to_companion(companion_id)
+    if not db.actor then
+        log_warn("Cannot teleport - not in game")
+        return false
+    end
+
+    local companion = data.COMPANIONS[companion_id]
+    if not companion then
+        log_error("Unknown companion: %s", companion_id)
+        return false
+    end
+
+    local se_obj = find_companion(companion_id)
+
+    if not se_obj then
+        local msg = data.MESSAGES.companion_not_found:format(companion.display_name)
+        news_manager.send_tip(db.actor, msg, nil, nil, 5000)
+        return false
+    end
+
+    local pos = se_obj.position
+    local lvid = se_obj.m_level_vertex_id
+    local gvid = se_obj.m_game_vertex_id
+    if lvid >= 4294967295 then return false end
+
+    local level_id = xlevel.get_level_id(se_obj)
+    if not level_id then return false end
+    local companion_level = alife():level_name(level_id)
+    local current_level = level.name()
+
+    if companion_level ~= current_level then
+        -- Different level - need level change
+        local msg = companion.display_name .. " is on " .. companion_level .. ". Teleporting..."
+        news_manager.send_tip(db.actor, msg, nil, nil, 5000)
+
+        -- Use ChangeLevel for cross-level teleport
+        ChangeLevel(pos, lvid, gvid, vector():set(0, 0, 0))
+        log_info("Teleported player to %s on level %s", companion_id, companion_level)
+    else
+        -- Same level - direct teleport
+        db.actor:set_actor_position(pos)
+        local msg = data.MESSAGES.teleported_to_companion:format(companion.display_name)
+        news_manager.send_tip(db.actor, msg, nil, nil, 5000)
+        log_info("Teleported player to %s", companion_id)
+    end
+
+    return true
+end
+
+-- ==================== AUTO-SPAWN ====================
+
+local spawned_this_session = {}
+
+--[[
+    Try to auto-spawn all enabled companions.
+    Called on first update after game load.
+]]
+local function _try_spawn_delayed(id, delay_time)
+    CreateTimeEvent("sc_spawn", id, delay_time, function()
+        if not companion_exists(id) and not is_dead(id) then spawn_at_default(id) end
+        spawned_this_session[id] = true
+        return true
+    end)
+end
+
+function auto_spawn_all()
+    local delay = 0
+
+    for companion_id, companion in pairs(data.COMPANIONS) do
+        if spawned_this_session[companion_id] then
+            log_debug("Already attempted spawn for %s this session", companion_id)
+            goto next_companion
+        end
+        if not is_enabled(companion_id) then
+            log_debug("%s is disabled in MCM", companion_id)
+            spawned_this_session[companion_id] = true
+            goto next_companion
+        end
+        if not is_auto_spawn(companion_id) then
+            log_debug("Auto-spawn disabled for %s", companion_id)
+            spawned_this_session[companion_id] = true
+            goto next_companion
+        end
+        if is_dead(companion_id) then
+            log_debug("%s is permanently dead", companion_id)
+            spawned_this_session[companion_id] = true
+            goto next_companion
+        end
+        if companion_exists(companion_id) then
+            log_debug("%s already exists", companion_id)
+            spawned_this_session[companion_id] = true
+            goto next_companion
+        end
+
+        _try_spawn_delayed(companion_id, data.TIMING.spawn_delay_sec + delay)
+        delay = delay + data.TIMING.spawn_stagger_sec
+
+        ::next_companion::
+    end
+end
+
+-- ==================== DEATH TRACKING ====================
+
+local function _notify_companion_death(companion)
+    if not db.actor then return end
+    local msg = companion.display_name .. " has fallen. She won't be coming back."
+    news_manager.send_tip(db.actor, msg, nil, nil, 15000)
+end
+
+function on_npc_death(npc, killer)
+    if not npc then return end
+
+    local section = npc:section()
+
+    for companion_id, companion in pairs(data.COMPANIONS) do
+        if section == companion.section then
+            log_info("%s (%s) has died!", companion.name, section)
+            mark_dead(companion_id)
+            _notify_companion_death(companion)
+            return
+        end
+    end
+end
+
+-- ==================== CALLBACKS ====================
+
+function actor_on_first_update()
+    CreateTimeEvent("sc_init", "auto_spawn", data.TIMING.spawn_delay_sec, function()
+        auto_spawn_all()
+        return true
+    end)
+end
+
+-- ==================== INITIALIZATION ====================
+
+local function _on_option_change()
+    if log then
+        log.set_level(cfg.debug_log and "DEBUG" or "INFO")
+    end
+end
+
+function on_game_start()
+    init_config()
+
+    if log then
+        log.set_level(cfg.debug_log and "DEBUG" or "INFO")
+    end
+
+    RegisterScriptCallback("actor_on_first_update", actor_on_first_update)
+    RegisterScriptCallback("npc_on_death_callback", on_npc_death)
+    RegisterScriptCallback("on_option_change", _on_option_change)
+end

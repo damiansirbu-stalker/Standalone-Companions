@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<game_dialogs>
+
+<dialog id="mila_story_dialog">
+	<phrase_list>
+		<phrase id="0">
+			<text>mila_story_ask</text>
+			<next>1</next>
+		</phrase>
+		<phrase id="1">
+			<text>mila_story_1</text>
+			<next>2</next>
+			<next>3</next>
+			<next>4</next>
+			<next>99</next>
+		</phrase>
+		<phrase id="2">
+			<text>mila_story_goon_1</text>
+			<next>5</next>
+		</phrase>
+		<phrase id="3">
+			<text>mila_story_ask_abilities</text>
+			<next>6</next>
+		</phrase>
+		<phrase id="4">
+			<text>mila_story_ask_likes</text>
+			<next>7</next>
+		</phrase>
+		<phrase id="5">
+			<text>mila_story_2</text>
+			<next>10</next>
+			<next>3</next>
+			<next>4</next>
+			<next>99</next>
+		</phrase>
+		<phrase id="6">
+			<text>mila_story_abilities</text>
+			<next>10</next>
+			<next>4</next>
+			<next>99</next>
+		</phrase>
+		<phrase id="7">
+			<text>mila_story_likes</text>
+			<next>8</next>
+			<next>99</next>
+		</phrase>
+		<phrase id="8">
+			<text>mila_story_ask_dislikes</text>
+			<next>9</next>
+		</phrase>
+		<phrase id="9">
+			<text>mila_story_dislikes</text>
+			<next>10</next>
+			<next>99</next>
+		</phrase>
+		<phrase id="10">
+			<text>mila_story_goon_2</text>
+			<next>11</next>
+		</phrase>
+		<phrase id="11">
+			<text>mila_story_3</text>
+			<next>12</next>
+			<next>99</next>
+		</phrase>
+		<phrase id="12">
+			<text>mila_story_goon_3</text>
+			<next>13</next>
+		</phrase>
+		<phrase id="13">
+			<text>mila_story_4</text>
+			<next>99</next>
+		</phrase>
+		<phrase id="99">
+			<text>mila_story_end</text>
+		</phrase>
+	</phrase_list>
+</dialog>
+
+<dialog id="mila_hire_dialog">
+	<precondition>zzz_sc_dialogs.can_hire</precondition>
+	<phrase_list>
+		<phrase id="0">
+			<text>mila_hire_0</text>
+			<next>1</next>
+		</phrase>
+		<phrase id="1">
+			<text>mila_hire_1</text>
+			<next>2</next>
+		</phrase>
+		<phrase id="2">
+			<text>mila_hire_2</text>
+			<action>zzz_sc_dialogs.do_hire</action>
+		</phrase>
+	</phrase_list>
+</dialog>
+
+<dialog id="mila_cannot_afford_dialog">
+	<precondition>zzz_sc_dialogs.cannot_afford</precondition>
+	<phrase_list>
+		<phrase id="0">
+			<text>mila_hire_0</text>
+			<next>1</next>
+		</phrase>
+		<phrase id="1">
+			<text>mila_cannot_afford_1</text>
+		</phrase>
+	</phrase_list>
+</dialog>
+
+<dialog id="mila_leave_dialog">
+	<precondition>zzz_sc_dialogs.is_companion</precondition>
+	<phrase_list>
+		<phrase id="0">
+			<text>mila_leave_0</text>
+			<next>1</next>
+		</phrase>
+		<phrase id="1">
+			<text>mila_leave_1</text>
+			<action>zzz_sc_dialogs.do_leave</action>
+		</phrase>
+	</phrase_list>
+</dialog>
+
+</game_dialogs>

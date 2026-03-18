@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<string_table>
+
+	<string id="stalker_duty_girl_name">
+		<text>Anna</text>
+	</string>
+
+	<!-- Join -->
+	<string id="anna_join_0">
+		<text>I could use someone watching my back out there. Want to come along?</text>
+	</string>
+	<string id="anna_join_1">
+		<text>Sure, I was getting bored anyway. Lead the way.</text>
+	</string>
+
+	<!-- Leave -->
+	<string id="anna_leave_0">
+		<text>You should head back to base. I'll take it from here.</text>
+	</string>
+	<string id="anna_leave_1">
+		<text>Alright. Good hunting, stalker. You know where to find me.</text>
+	</string>
+
+	<!-- Cannot Join (Relations) -->
+	<string id="anna_cannot_join_0">
+		<text>I could use someone watching my back out there. Want to come along?</text>
+	</string>
+	<string id="anna_cannot_join_1">
+		<text>I appreciate the offer, but I don't know you well enough. Prove yourself to Duty first, then we'll talk.</text>
+	</string>
+
+	<!-- Anna Story Dialog -->
+	<string id="anna_story_ask">
+		<text>Tell me about yourself, Anna.</text>
+	</string>
+	<string id="anna_story_1">
+		<text>Not much to tell. I grew up in Kyiv, normal childhood. My father was a stalker - one of the old guard. He'd come home with stories about the Zone, artifacts, mutants. I thought he was crazy.</text>
+	</string>
+	<string id="anna_story_goon_1">
+		<text>Go on...</text>
+	</string>
+	<string id="anna_story_2">
+		<text>Then one day he didn't come home. They found what was left of him near the Army Warehouses. A chimera got him. I was seventeen. Joined Duty the day I turned eighteen. Been hunting mutants ever since.</text>
+	</string>
+	<string id="anna_story_goon_2">
+		<text>That's rough. What keeps you going?</text>
+	</string>
+	<string id="anna_story_3">
+		<text>Revenge, at first. Now? It's purpose. The Zone is a disease, and Duty is the cure. Every mutant I put down, every anomaly we contain - that's one less thing that can kill someone's father. Someone's family.</text>
+	</string>
+	<string id="anna_story_goon_3">
+		<text>You ever think about leaving?</text>
+	</string>
+	<string id="anna_story_4">
+		<text>Sometimes. Late at night, when the emissions howl and the walls shake. But then morning comes, and I remember - there's no one else who'll do this. If not me, who? If not now, when? The Zone doesn't sleep, stalker. Neither can we.</text>
+	</string>
+	<string id="anna_story_ask_abilities">
+		<text>What are you good at in a fight?</text>
+	</string>
+	<string id="anna_story_abilities">
+		<text>I can take a beating. Years of Duty training taught me how to stay standing when others would fall. I'm not the best shot in the Zone, but I don't miss often, and I don't go down easy. You need someone to hold the line while you flank? That's me. Someone to draw fire while you reposition? Also me. I'm the wall between you and whatever wants you dead.</text>
+	</string>
+	<string id="anna_story_ask_likes">
+		<text>What do you enjoy? When you're not fighting, I mean.</text>
+	</string>
+	<string id="anna_story_likes">
+		<text>Silence. Real silence, not the dead kind before an ambush. I like cleaning my weapons - there's something meditative about it. A good campfire with decent company. Vodka that doesn't taste like fuel. And sunrises. Every sunrise in the Zone feels earned, you know? Like you stole another day from this place.</text>
+	</string>
+	<string id="anna_story_ask_dislikes">
+		<text>And what do you hate?</text>
+	</string>
+	<string id="anna_story_dislikes">
+		<text>Freedom fanatics and their "live and let live" garbage. The Zone isn't some playground - it's a wound that needs to be cauterized. I hate stalkers who hunt artifacts while ignoring the mutant nests breeding in their backyard. Cowards who run at the first sign of trouble. And chimeras. I really, really hate chimeras.</text>
+	</string>
+	<string id="anna_story_end">
+		<text>Thanks for sharing.</text>
+	</string>
+
+	<!-- MCM Menu -->
+	<string id="ui_mcm_menu_standalone_companions">
+		<text>Standalone Companions</text>
+	</string>
+	<string id="ui_mcm_standalone_companions_title">
+		<text>Standalone Companions</text>
+	</string>
+	<string id="ui_mcm_sc_anna_header">
+		<text>Anna (Duty)</text>
+	</string>
+
+	<string id="ui_mcm_standalone_companions_anna_enabled">
+		<text>Enable Anna</text>
+	</string>
+	<string id="ui_mcm_standalone_companions_anna_enabled_desc">
+		<text>Enable or disable Anna as a hireable companion.</text>
+	</string>
+
+	<string id="ui_mcm_standalone_companions_anna_spawn_mode">
+		<text>Spawn Mode</text>
+	</string>
+	<string id="ui_mcm_standalone_companions_anna_spawn_mode_desc">
+		<text>Choose when and where Anna should spawn.</text>
+	</string>
+
+	<string id="sc_spawn_disabled">
+		<text>Disabled</text>
+	</string>
+	<string id="sc_spawn_new_game">
+		<text>New Game Only (Rostok)</text>
+	</string>
+	<string id="sc_spawn_rostok">
+		<text>Spawn at Rostok</text>
+	</string>
+	<string id="sc_spawn_deadcity">
+		<text>Spawn at Dead City</text>
+	</string>
+
+	<!-- Teleport Button -->
+	<string id="ui_mcm_standalone_companions_anna_teleport">
+		<text>Teleport Anna</text>
+	</string>
+	<string id="ui_mcm_standalone_companions_mila_teleport">
+		<text>Teleport Mila</text>
+	</string>
+	<string id="ui_mcm_standalone_companions_teleport">
+		<text>Teleport to Player</text>
+	</string>
+	<string id="ui_mcm_standalone_companions_teleport_desc">
+		<text>Teleport this companion to your current location. If dead, they cannot be summoned.</text>
+	</string>
+
+	<!-- ==================== MILA (MERCENARY) ==================== -->
+
+	<string id="stalker_merc_girl_name">
+		<text>Mila</text>
+	</string>
+
+	<!-- Hire -->
+	<string id="mila_hire_0">
+		<text>I need someone professional. What's your rate?</text>
+	</string>
+	<string id="mila_hire_1">
+		<text>100,000 rubles. Non-negotiable. I don't work cheap, but I don't die easy either.</text>
+	</string>
+	<string id="mila_hire_2">
+		<text>Deal. Here's your money.</text>
+	</string>
+
+	<!-- Cannot Afford -->
+	<string id="mila_cannot_afford_1">
+		<text>100,000 rubles. Come back when you can afford me, stalker.</text>
+	</string>
+
+	<!-- Leave -->
+	<string id="mila_leave_0">
+		<text>Contract's done. You're dismissed.</text>
+	</string>
+	<string id="mila_leave_1">
+		<text>Understood. You know where to find me if you need firepower again.</text>
+	</string>
+
+	<!-- Mila Story Dialog -->
+	<string id="mila_story_ask">
+		<text>Tell me about yourself, Mila.</text>
+	</string>
+	<string id="mila_story_1">
+		<text>You're paying for my gun, not my life story. But fine. Ukrainian Special Forces, Alpha Group. Eight years. Counter-terrorism, hostage rescue, the works they don't put in newspapers.</text>
+	</string>
+	<string id="mila_story_goon_1">
+		<text>Go on...</text>
+	</string>
+	<string id="mila_story_2">
+		<text>I was good. Too good, maybe. Started noticing things - operations that didn't add up, money flowing the wrong direction, people disappearing who shouldn't. When I asked questions, my commanding officer tried to have me killed. Badly. I'm still here. He's not.</text>
+	</string>
+	<string id="mila_story_goon_2">
+		<text>So you came to the Zone?</text>
+	</string>
+	<string id="mila_story_3">
+		<text>The Zone doesn't care about your past. No politics, no corruption - just survival and money. Clean, in a way. Out there, everyone's honest about what they want. Kill or be killed. Get rich or die trying. No one pretends to be your friend while sharpening a knife for your back.</text>
+	</string>
+	<string id="mila_story_goon_3">
+		<text>Do you miss your old life?</text>
+	</string>
+	<string id="mila_story_4">
+		<text>I miss having a purpose beyond money. I miss trusting people. But trust gets you killed - I learned that lesson in blood. Now I have contracts, not causes. It's simpler. You pay, I shoot. No betrayal, no politics, no lies. Just business.</text>
+	</string>
+	<string id="mila_story_ask_abilities">
+		<text>What are you good at in a fight?</text>
+	</string>
+	<string id="mila_story_abilities">
+		<text>I don't miss. Eight years of Spetsnaz training, thousands of rounds downrange - when I pull the trigger, something dies. Long range, short range, doesn't matter. I read combat like a book. Flanking routes, choke points, kill zones - I see them before the first shot fires. You want precision? You want tactical awareness? That's what you're paying for.</text>
+	</string>
+	<string id="mila_story_ask_likes">
+		<text>What do you enjoy? When you're not working.</text>
+	</string>
+	<string id="mila_story_likes">
+		<text>Professionalism. I respect people who do their job well, whatever that job is. A clean kill, a well-maintained weapon, a plan that comes together. Good equipment - there's pleasure in quality gear that won't fail you. And solitude. I like being alone with my thoughts. Less complicated that way.</text>
+	</string>
+	<string id="mila_story_ask_dislikes">
+		<text>And what do you hate?</text>
+	</string>
+	<string id="mila_story_dislikes">
+		<text>Amateurs. People who wave guns around like toys and get others killed with their stupidity. Liars - I've had enough of those for a lifetime. Cheap clients who try to renegotiate after the job's done. And idealists. Duty, Freedom, whatever - they're all the same. Fighting for causes that don't exist while the Zone laughs at them.</text>
+	</string>
+	<string id="mila_story_end">
+		<text>I appreciate the honesty.</text>
+	</string>
+
+	<!-- MCM Menu - Mila -->
+	<string id="ui_mcm_sc_mila_header">
+		<text>Mila (Mercenary)</text>
+	</string>
+
+	<string id="ui_mcm_standalone_companions_mila_enabled">
+		<text>Enable Mila</text>
+	</string>
+	<string id="ui_mcm_standalone_companions_mila_enabled_desc">
+		<text>Enable or disable Mila as a hireable companion.</text>
+	</string>
+
+	<string id="ui_mcm_standalone_companions_mila_spawn_mode">
+		<text>Spawn Mode</text>
+	</string>
+	<string id="ui_mcm_standalone_companions_mila_spawn_mode_desc">
+		<text>Choose when and where Mila should spawn.</text>
+	</string>
+
+</string_table>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<xml>
+
+<specific_character id="stalker_merc_girl" team_default="1">
+	<class>stalker_merc_girl</class>
+	<name>stalker_merc_girl_name</name>
+	<icon>ui_npc_merc_girl</icon>
+	<community>killer</community>
+	<snd_config>characters_voice\human\woman\</snd_config>
+	<visual>actors\mnp_npc_remeik\merc_girl</visual>
+
+	<supplies>
+	[spawn] \n
+	wpn_ak74u \n
+	ammo_5.45x39_fmj \n
+	ammo_5.45x39_fmj \n
+	grenade_f1 \n
+	</supplies>
+
+	<map_icon x="1" y="0"> </map_icon>
+	<bio>Former Ukrainian Spetsnaz who went private after seeing too much corruption. Cold, professional, expensive. Her services don't come cheap, but she's worth every ruble.</bio>
+	<rank>500</rank>
+	<reputation>300</reputation>
+	<money min="80000" max="150000" infinitive="0"/>
+
+	<start_dialog>hello_dialog</start_dialog>
+
+	<actor_dialog>dm_is_actor_companion_dialog</actor_dialog>
+
+	<actor_dialog>mila_story_dialog</actor_dialog>
+	<actor_dialog>mila_hire_dialog</actor_dialog>
+	<actor_dialog>mila_cannot_afford_dialog</actor_dialog>
+	<actor_dialog>mila_leave_dialog</actor_dialog>
+
+	<actor_dialog>actor_break_dialog</actor_dialog>
+</specific_character>
+
+</xml>

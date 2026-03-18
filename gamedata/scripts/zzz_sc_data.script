@@ -1,0 +1,78 @@
+--- zzz_sc_data: Static data - companion definitions, constants, defaults
+
+local _VERSION = "1.0.0"
+
+function version()
+    return _VERSION
+end
+
+-- ==================== COMPANION DEFINITIONS ====================
+
+COMPANIONS = {
+    anna = {
+        section = "stalker_duty_girl",
+        name = "Anna",
+        display_name = "Anna",
+        faction = "dolg",
+        -- Default spawn location
+        default_smart = "bar_visitors",
+        default_level = "l05_bar",
+        -- Recruitment
+        recruit_type = "goodwill",
+        recruit_faction = "dolg",
+        recruit_goodwill = 2000,
+        -- Description for MCM
+        desc = "Duty sniper, spawns at Rostok Bar",
+    },
+    mila = {
+        section = "stalker_merc_girl",
+        name = "Mila",
+        display_name = "Mila",
+        faction = "killer",
+        -- Default spawn location
+        default_smart = "dead_city_merc_base",
+        default_level = "l09_deadcity",
+        -- Recruitment
+        recruit_type = "money",
+        recruit_cost = 100000,
+        -- Description for MCM
+        desc = "Mercenary, spawns at Dead City",
+    },
+}
+
+-- ==================== MCM DEFAULTS ====================
+
+MCM_DEFAULTS = {
+    -- Global
+    debug_log = false,
+
+    -- Per-companion defaults (applied to all)
+    enabled = true,
+    auto_spawn = true,
+}
+
+-- ==================== TIMING ====================
+
+TIMING = {
+    spawn_delay_sec = 3,
+    spawn_stagger_sec = 1,
+}
+
+-- ==================== MESSAGES ====================
+-- Uses xstring.format syntax: {key} placeholders
+
+MESSAGES = {
+    teleported_to_player = "{name} teleported to your location.",
+    spawned_at_player = "{name} has arrived at your location.",
+    spawn_failed = "Failed to summon {name}.",
+    companion_dead = "{name} is dead. Gone forever.",
+    teleported_to_companion = "Teleported to {name}'s location.",
+    companion_not_found = "Cannot locate {name}.",
+    already_exists = "{name} already exists in the world.",
+    death_notification = "{name} has fallen. She won't be coming back.",
+    hired = "{name} has joined you. {cost} RU transferred.",
+}
+
+-- ==================== PERMADEATH ====================
+
+PERMADEATH_SAVE_PREFIX = "sc_dead_"

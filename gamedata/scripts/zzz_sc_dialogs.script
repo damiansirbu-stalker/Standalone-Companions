@@ -1,0 +1,165 @@
+--- zzz_sc_dialogs: Dialog preconditions and actions for companion recruitment
+
+-- ==================== IMPORTS ====================
+
+local data = zzz_sc_data
+
+-- ==================== CACHED GLOBALS ====================
+
+local db, pairs, string = db, pairs, string
+
+-- ==================== HELPER: GET COMPANION BY NPC ====================
+
+--[[
+    Find which companion this NPC is by section.
+    @return companion_id, companion_data or nil, nil
+]]
+local function get_companion_by_npc(npc)
+    if not npc then return nil, nil end
+    local section = npc:section()
+    for companion_id, companion in pairs(data.COMPANIONS) do
+        if companion.section == section then
+            return companion_id, companion
+        end
+    end
+    return nil, nil
+end
+
+-- ==================== DATA-DRIVEN RECRUITMENT ====================
+
+--[[
+    Check if player meets goodwill requirement for a faction.
+    @param faction (string) - faction id (e.g., "dolg", "freedom", "killer")
+    @param threshold (number) - minimum goodwill required
+]]
+local function has_faction_goodwill(faction, threshold)
+    -- Check if player IS that faction (always passes)
+    local actor_comm = character_community(db.actor)
+    local faction_actor_map = {
+        dolg = "actor_dolg",
+        freedom = "actor_freedom",
+        killer = "actor_killer",
+        bandit = "actor_bandit",
+        ecolog = "actor_ecolog",
+        army = "actor_army",
+        monolith = "actor_monolith",
+        csky = "actor_csky",
+        renegade = "actor_renegade",
+        greh = "actor_greh",
+        isg = "actor_isg",
+    }
+    if actor_comm == faction_actor_map[faction] then
+        return true
+    end
+
+    -- Check goodwill with faction
+    local goodwill = relation_registry.community_goodwill(faction, AC_ID) or 0
+    return goodwill >= threshold
+end
+
+--[[
+    Check if player can afford to hire (money-based recruitment).
+    @param cost (number) - rubles required
+]]
+local function can_afford(cost)
+    return db.actor:money() >= cost
+end
+
+-- ==================== GENERIC PRECONDITIONS ====================
+
+--[[
+    Precondition: Can recruit this companion (meets requirements).
+    Works for both goodwill and money-based recruitment.
+]]
+function can_recruit(_actor, npc)
+    if npc:has_info("npcx_is_companion") then
+        return false
+    end
+
+    local companion_id, companion = get_companion_by_npc(npc)
+    if not companion then return false end
+
+    if companion.recruit_type == "goodwill" then
+        return has_faction_goodwill(companion.recruit_faction, companion.recruit_goodwill)
+    elseif companion.recruit_type == "money" then
+        return can_afford(companion.recruit_cost)
+    end
+
+    return true
+end
+
+--[[
+    Precondition: Cannot recruit (show rejection dialog).
+]]
+function cannot_recruit(actor, npc)
+    if npc:has_info("npcx_is_companion") then
+        return false
+    end
+    return not can_recruit(actor, npc)
+end
+
+--[[
+    Precondition: Is currently a companion.
+]]
+function is_companion(_actor, npc)
+    return npc:has_info("npcx_is_companion")
+end
+
+-- ==================== GENERIC ACTIONS ====================
+
+--[[
+    Action: Recruit companion (handles money transfer if needed).
+]]
+function do_recruit(actor, npc)
+    local companion_id, companion = get_companion_by_npc(npc)
+
+    -- Handle money-based recruitment
+    if companion and companion.recruit_type == "money" and companion.recruit_cost then
+        local cost = companion.recruit_cost
+        db.actor:give_money(-cost)
+        npc:give_money(cost)
+
+        local msg = string.format("%s has joined you. %d RU transferred.",
+            companion.display_name, cost)
+        news_manager.send_tip(db.actor, msg, nil, nil, 10000)
+    end
+
+    -- Make companion
+    dialogs_axr_companion.become_actor_companion(actor, npc)
+end
+
+--[[
+    Action: Dismiss companion.
+]]
+function do_leave(actor, npc)
+    dialogs_axr_companion.remove_companions_from_squad(actor, npc)
+end
+
+-- ==================== DIALOG XML WRAPPERS ====================
+-- Aliases used by character-specific dialog XMLs (Anna, Mila)
+
+-- Anna (goodwill-based)
+function can_join(actor, npc)
+    return can_recruit(actor, npc)
+end
+
+function cannot_join_relations(actor, npc)
+    return cannot_recruit(actor, npc)
+end
+
+function do_join(actor, npc)
+    dialogs_axr_companion.become_actor_companion(actor, npc)
+end
+
+-- Mila (money-based)
+function can_hire(actor, npc)
+    return can_recruit(actor, npc)
+end
+
+function cannot_afford(actor, npc)
+    return cannot_recruit(actor, npc)
+end
+
+function do_hire(actor, npc)
+    return do_recruit(actor, npc)
+end

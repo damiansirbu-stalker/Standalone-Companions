@@ -1,0 +1,133 @@
+--- zzz_sc_mcm: MCM configuration - per-companion toggles and teleport buttons
+
+-- ==================== IMPORTS ====================
+
+local data = zzz_sc_data
+
+-- ==================== CACHED GLOBALS ====================
+
+local pairs = pairs
+
+-- ==================== DEFAULTS ====================
+
+defaults = {
+    -- Global
+    debug_log = false,
+}
+
+-- Build per-companion defaults and prefix lookup table
+local _prefix_to_companion = {}
+for companion_id, _ in pairs(data.COMPANIONS) do
+    defaults[companion_id .. "_enabled"] = true
+    defaults[companion_id .. "_auto_spawn"] = true
+    _prefix_to_companion[companion_id .. "_"] = companion_id
+end
+
+-- ==================== CONFIG ====================
+
+local path_builder = function(key)
+    if key == "debug_log" then
+        return "sc/general/" .. key
+    end
+    for prefix, companion_id in pairs(_prefix_to_companion) do
+        if key:sub(1, #prefix) == prefix then
+            local setting = key:sub(#prefix + 1)
+            return "sc/" .. companion_id .. "/" .. setting
+        end
+    end
+    return "sc/" .. key
+end
+get_config = xmcm.create_getter("sc", defaults, path_builder)
+cfg = setmetatable({}, { __index = function(_, k) return get_config(k) end })
+
+-- ==================== BUTTON HANDLERS ====================
+
+--[[
+    Generic teleport button handler.
+    Teleports companion TO player.
+]]
+function btn_teleport_to_player(companion_id)
+    if zzz_sc and zzz_sc.teleport_to_player then
+        zzz_sc.teleport_to_player(companion_id)
+    end
+end
+
+--[[
+    Generic "go to" button handler.
+    Teleports player TO companion.
+]]
+function btn_go_to_companion(companion_id)
+    if zzz_sc and zzz_sc.teleport_to_companion then
+        zzz_sc.teleport_to_companion(companion_id)
+    end
+end
+
+--[[
+    Debug: Reset companion death status.
+]]
+function btn_reset_death(companion_id)
+    if zzz_sc and zzz_sc.reset_death then
+        zzz_sc.reset_death(companion_id)
+        if db.actor then
+            local companion = data.COMPANIONS[companion_id]
+            local msg = (companion and companion.display_name or companion_id) .. " death status reset."
+            news_manager.send_tip(db.actor, msg, nil, nil, 5000)
+        end
+    end
+end
+
+-- ==================== MCM DEFINITION ====================
+
+function on_mcm_load()
+    local gr = {
+        -- ============ GENERAL TAB ============
+        {
+            id = "general",
+            sh = true,
+            gr = {
+                { id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_sc_title", size = {512, 50}, spacing = 20 },
+                { id = "desc", type = "desc", text = "ui_mcm_sc_general_desc" },
+
+                -- Debug
+                { id = "div_debug", type = "line" },
+                { id = "hdr_debug", type = "desc", text = "ui_mcm_sc_hdr_debug", clr = {255, 200, 200, 200} },
+                { id = "debug_log", type = "check", val = 1, def = false },
+                { id = "div_version", type = "line" },
+                { id = "version", type = "desc", text = "ui_mcm_sc_version", clr = {255, 0, 206, 209} },
+            },
+        },
+    }
+
+    -- ============ PER-COMPANION TABS ============
+    for companion_id, companion in pairs(data.COMPANIONS) do
+        local tab = {
+            id = companion_id,
+            sh = true,
+            gr = {
+                { id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_sc_" .. companion_id .. "_title", size = {512, 50}, spacing = 20 },
+                { id = "desc", type = "desc", text = "ui_mcm_sc_" .. companion_id .. "_desc" },
+
+                -- Enable/Disable
+                { id = "div_main", type = "line" },
+                { id = "hdr_main", type = "desc", text = "ui_mcm_sc_hdr_settings", clr = {255, 200, 200, 200} },
+                { id = "enabled", type = "check", val = 1, def = true },
+                { id = "auto_spawn", type = "check", val = 1, def = true },
+
+                -- Teleport buttons
+                { id = "div_actions", type = "line" },
+                { id = "hdr_actions", type = "desc", text = "ui_mcm_sc_hdr_actions", clr = {255, 200, 200, 200} },
+                { id = "btn_teleport", type = "button", functor = { btn_teleport_to_player, companion_id } },
+                { id = "btn_goto", type = "button", functor = { btn_go_to_companion, companion_id } },
+
+                -- Debug actions
+                { id = "div_debug", type = "line" },
+                { id = "hdr_debug_actions", type = "desc", text = "ui_mcm_sc_hdr_debug_actions", clr = {255, 200, 200, 200} },
+                { id = "btn_reset_death", type = "button", functor = { btn_reset_death, companion_id } },
+            },
+        }
+        gr[#gr+1] = tab
+    end
+
+    return { id = "sc", gr = gr }
+end
+

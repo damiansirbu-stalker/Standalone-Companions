@@ -1,0 +1,87 @@
+; Standalone Companions - DLTX system injection
+; Author: Damian
+; Injects dialogs, NPC profiles and creature sections
+
+![dialogs]
+>files = dialogs_anna
+>files = dialogs_mila
+
+![profiles]
+>files = npc_profile_anna
+>files = npc_profile_mila
+>specific_characters_files = character_desc_anna
+>specific_characters_files = character_desc_mila
+
+; ==================== ANNA (DUTY) ====================
+; Slightly tankier, good accuracy
+; Takes ~55% damage, solid shooter
+[stalker_duty_girl]:sim_default_duty_4
+character_profile		= stalker_duty_girl
+story_id				= stalker_duty_girl
+spec_rank				= veteran
+immunities_sect			= stalker_immunities_anna
+panic_threshold			= 0.0
+
+; Good accuracy (better than base NPCs)
+disp_walk_stand			= 2.5
+disp_walk_crouch		= 1.8
+disp_run_stand			= 2.8
+disp_run_crouch			= 2.2
+disp_stand_stand		= 0.6
+disp_stand_crouch		= 0.5
+disp_stand_stand_zoom	= 0.18
+disp_stand_crouch_zoom	= 0.15
+
+MinMissDistance			= 0.15
+MinMissFactor			= 0.004
+MaxMissDistance			= 1.2
+MaxMissFactor			= 0.015
+
+[stalker_immunities_anna]
+; Takes ~55% damage (tougher than average)
+burn_immunity 				= 0.55
+strike_immunity 			= 0.50
+shock_immunity 				= 0.55
+wound_immunity				= 0.55
+radiation_immunity 			= 0.60
+telepatic_immunity 			= 0.60
+chemical_burn_immunity 		= 0.55
+explosion_immunity 			= 0.50
+fire_wound_immunity  		= 0.55
+
+; ==================== MILA (MERCENARY) ====================
+; Slightly more accurate, good survivability
+; Takes ~65% damage, precise shooter
+[stalker_merc_girl]:sim_default_killer_4
+character_profile		= stalker_merc_girl
+story_id				= stalker_merc_girl
+spec_rank				= veteran
+immunities_sect			= stalker_immunities_mila
+panic_threshold			= 0.0
+
+; Very good accuracy (Spetsnaz training)
+disp_walk_stand			= 2.0
+disp_walk_crouch		= 1.4
+disp_run_stand			= 2.4
+disp_run_crouch			= 1.8
+disp_stand_stand		= 0.4
+disp_stand_crouch		= 0.35
+disp_stand_stand_zoom	= 0.10
+disp_stand_crouch_zoom	= 0.08
+
+MinMissDistance			= 0.10
+MinMissFactor			= 0.003
+MaxMissDistance			= 0.8
+MaxMissFactor			= 0.010
+
+[stalker_immunities_mila]
+; Takes ~65% damage (above average toughness)
+burn_immunity 				= 0.65
+strike_immunity 			= 0.70
+shock_immunity 				= 0.60
+wound_immunity				= 0.65
+radiation_immunity 			= 0.65
+telepatic_immunity 			= 0.60
+chemical_burn_immunity 		= 0.65
+explosion_immunity 			= 0.70
+fire_wound_immunity  		= 0.65
