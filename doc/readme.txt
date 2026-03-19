@@ -1,5 +1,5 @@
 Standalone Companions: Custom companions for STALKER Anomaly, by Damian
-Latest: 1.0.0 (xlibs 1.0.5)
+Latest: 1.0.1 (xlibs 1.0.5)
 
 No quest requirements. Just talk and recruit. Each companion has their own personality, location, and recruitment method. Permadeath keeps it real - if they die, they stay dead.
 
@@ -60,6 +60,9 @@ The code is validated in real time by a multi-stage pipeline: luacheck, selene, 
 Full report in doc/test-report.log.
 
 Versions:
+
+1.0.1
+  Fixed: dependency gate uses exact version match instead of string comparison
 
 1.0.0
   First release. Custom companions with dialog recruitment and permadeath.
