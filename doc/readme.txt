@@ -51,6 +51,10 @@ All settings in MCM under Standalone Companions. Per-companion tabs for individu
 Compatibility:
 Uses standard Anomaly companion system (axr_companions). Compatible with GAMMA and other companion mods. Does not modify base scripts.
 
+Credits:
+Grokitach, DrakoMT, and SaloEater for their support.
+Demonized, Catspaw, Vintar0, RavenAscendant, xcvb, lizzardman, Aoldri, and Feel_Fried. Their work on the engine, modded exes, scripts, and tools shaped how Anomaly modding is done.
+
 Development:
 Source: https://github.com/damiansirbu-stalker/Standalone-Companions
 Releases: https://github.com/damiansirbu-stalker/Standalone-Companions/releases
