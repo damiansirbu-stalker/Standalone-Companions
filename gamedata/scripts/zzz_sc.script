@@ -7,6 +7,7 @@ local data = zzz_sc_data
 -- ==================== CACHED GLOBALS ====================
 
 local pairs, pcall, alife, level, db = pairs, pcall, alife, level, db
+local INVALID_LEVEL_VERTEX_ID = xconst.INVALID_LEVEL_VERTEX_ID
 
 -- xlibs utilities
 local format = xstring.format
@@ -156,7 +157,7 @@ function spawn_at(companion_id, pos, lvid, gvid)
         return nil
     end
 
-    if not lvid or lvid >= 4294967295 then
+    if not lvid or lvid >= INVALID_LEVEL_VERTEX_ID then
         log_error("Cannot spawn %s - invalid lvid: %s", companion_id, lvid)
         return nil
     end
@@ -310,7 +311,7 @@ function teleport_to_companion(companion_id)
     local pos = se_obj.position
     local lvid = se_obj.m_level_vertex_id
     local gvid = se_obj.m_game_vertex_id
-    if lvid >= 4294967295 then return false end
+    if lvid >= INVALID_LEVEL_VERTEX_ID then return false end
 
     local level_id = xlevel.get_level_id(se_obj)
     if not level_id then return false end
