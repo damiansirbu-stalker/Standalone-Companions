@@ -6,7 +6,7 @@ local data = zzz_sc_data
 
 -- ==================== CACHED GLOBALS ====================
 
-local db, pairs, string = db, pairs, string
+local db, pairs, string, character_community = db, pairs, string, character_community
 
 -- ==================== HELPER: GET COMPANION BY NPC ====================
 
