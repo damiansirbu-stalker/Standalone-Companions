@@ -1,5 +1,6 @@
 Standalone Companions: Custom companions for STALKER Anomaly, by Damian
 Latest: 1.0.1 (xlibs 1.0.5)
+GitHub: https://github.com/damiansirbu-stalker/Standalone-Companions
 
 No quest requirements. Just talk and recruit. Each companion has their own personality, location, and recruitment method. Permadeath keeps it real - if they die, they stay dead.
 
@@ -56,8 +57,6 @@ DrakoMT and SaloEater for their support.
 Demonized, Catspaw, Vintar0, RavenAscendant, xcvb, lizzardman, Aoldri, and Feel_Fried. Their work on the engine, modded exes, scripts, and tools shaped how Anomaly modding is done.
 
 Development:
-Source: https://github.com/damiansirbu-stalker/Standalone-Companions
-Releases: https://github.com/damiansirbu-stalker/Standalone-Companions/releases
 Written against X-Ray Monolith engine source, Demonized exes source code, and Anomaly 1.5.3 unpacked gamedata.
 Code patterns and engine usage validated against established work by reputable GAMMA modders (Demonized, Vintar0, RavenAscendant, xcvb).
 The code is validated in real time by a multi-stage pipeline: luacheck, selene, tree-sitter AST analysis, contract rules, cross-file dependency resolution, cyclomatic complexity analysis, crash and vulnerability pattern detection, lua54 integration testing with X-Ray engine stubs, gitleaks secret scanning.
