@@ -62,8 +62,10 @@ Code patterns and engine usage validated against established work by reputable G
 The code is validated in real time by a multi-stage pipeline: luacheck, selene, tree-sitter AST analysis, contract rules, cross-file dependency resolution, cyclomatic complexity analysis, crash and vulnerability pattern detection, lua54 integration testing with X-Ray engine stubs, gitleaks secret scanning.
 Full report in doc/test-report.log.
 
-License:
-MIT License. See LICENSE file.
+Usage and License:
+  Modpacks: allowed and encouraged. Keep the readme and license files.
+  Addons, patches, integrations: allowed. Credit "Standalone Companions by Damian Sirbu" visibly on your mod page.
+  Full license in LICENSE file and on GitHub.
 
 Versions:
 
