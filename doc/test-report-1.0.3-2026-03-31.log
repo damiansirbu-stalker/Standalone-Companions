@@ -1,5 +1,5 @@
 STALKER Mod Validation Report
-Generated: 2026-03-30 16:37:02
+Generated: 2026-03-31 01:05:44
 Validator: stalker-manager validate
 Mods: 1
 
@@ -261,44 +261,44 @@ Files:
   Test: lua54 interpreter + X-Ray engine stubs
   Load test: Standalone-Companions
   LOAD: xsquad
-  LOAD: xsmart
-  LOAD: xtrace
-  LOAD: _sc_deps
-  LOAD: zzz_sc_mcm
-  LOAD: xprofiler
-  LOAD: xdata
-  LOAD: zzz_sc_dialogs
-  LOAD: zzz_sc_data
-  LOAD: xlibs_mcm
-  LOAD: xlibs
-  LOAD: xobject
-  LOAD: xinspect
-  LOAD: xpda
   LOAD: xtable
-  LOAD: xtime
-  LOAD: xcreature
-  LOAD: xevent
-  LOAD: xttltable
-  LOAD: xconst
-  LOAD: xstring
-  LOAD: zzz_sc
-  LOAD: xmcm
-  LOAD: xbus
-  LOAD: xlog
   LOAD: xmath
+  LOAD: xlog
+  LOAD: xbus
+  LOAD: xlibs_mcm
+  LOAD: xcreature
+  LOAD: xobject
+  LOAD: xconst
+  LOAD: xmcm
+  LOAD: zzz_sc_mcm
+  LOAD: zzz_sc_dialogs
+  LOAD: xevent
+  LOAD: zzz_sc_data
+  LOAD: zzz_sc
+  LOAD: xprofiler
+  LOAD: xlibs
+  LOAD: xtrace
+  LOAD: xinspect
   LOAD: xlevel
+  LOAD: xstring
+  LOAD: xsmart
+  LOAD: xdata
+  LOAD: xtime
+  LOAD: xttltable
+  LOAD: xpda
   LOAD: xstash
+  LOAD: _sc_deps
+  START: xtime.on_game_start
   START: xlog.on_game_start
   START: zzz_sc.on_game_start
   START: zzz_sc_mcm.on_game_start
-  START: xtime.on_game_start
   START: _sc_deps.on_game_start
   OK: 28 loaded, 5 on_game_start
 
 [5/5] gitleaks - secret scanning (PASS)
   Scan: credentials, API keys, tokens, private keys
-  4:37PM INF scanned ~214477457 bytes (214.48 MB) in 643ms
-  4:37PM INF no leaks found
+  1:05AM INF scanned ~214498220 bytes (214.50 MB) in 657ms
+  1:05AM INF no leaks found
 
 ========================================================================
 RESULT: PASS | Grade: S+ | Score: 0

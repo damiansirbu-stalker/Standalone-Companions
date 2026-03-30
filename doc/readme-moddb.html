@@ -1,0 +1,109 @@
+<h3>Latest: 1.0.3 (xlibs 1.2.3)</h3>
+<h3>GitHub: <a href="https://github.com/damiansirbu-stalker/Standalone-Companions">https://github.com/damiansirbu-stalker/Standalone-Companions</a></h3>
+
+<p>No quest requirements. Just talk and recruit. Each companion has their own personality, location, and recruitment method. Permadeath keeps it real - if they die, they stay dead.</p>
+
+<p>Anna is Duty. Find her at Rostok Bar. Earn 2000+ Duty goodwill or join Duty, then talk to her. She joins as a standard companion with full Anomaly companion controls.</p>
+
+<p>Mila is a mercenary. Find her at Dead City. Pay 100,000 rubles. Business is business.</p>
+
+<p>Both companions auto-spawn at their default locations on game load. MCM gives full control: enable/disable each companion, toggle auto-spawn, teleport them to you or yourself to them. Debug options let you reset permadeath if needed.</p>
+
+<h2>Features</h2>
+
+<h3>Companions:</h3>
+<ul>
+<li><b>Anna</b> (Duty) - Rostok Bar. Requires 2000+ Duty goodwill or Duty membership.</li>
+<li><b>Mila</b> (Mercenary) - Dead City. Costs 100,000 rubles to hire.</li>
+</ul>
+
+<h3>Recruitment:</h3>
+<ul>
+<li>Dialog-based with faction goodwill or money checks</li>
+<li>Standard Anomaly companion system (full companion controls after recruitment)</li>
+</ul>
+
+<h3>Permadeath:</h3>
+<ul>
+<li>Companions stay dead when killed</li>
+<li>Reset via MCM debug option</li>
+</ul>
+
+<h3>MCM (per companion):</h3>
+<ul>
+<li>Enable/Disable companion</li>
+<li>Auto-spawn at default location on game load</li>
+<li>Teleport companion to player</li>
+<li>Teleport player to companion (cross-level supported)</li>
+<li>Reset death status (debug)</li>
+</ul>
+
+<h2>Requirements</h2>
+<ul>
+<li>Anomaly 1.5.3</li>
+<li>Modded exes</li>
+<li><a href="https://www.moddb.com/mods/stalker-anomaly/addons/xlibs-1001">xlibs</a></li>
+<li>MCM</li>
+</ul>
+
+<h2>Install (MO2)</h2>
+<ul>
+<li>1. Install xlibs</li>
+<li>2. Install Standalone Companions</li>
+<li>3. Load order does not matter</li>
+<li>4. Configure via MCM</li>
+</ul>
+
+<h2>Uninstall (MO2)</h2>
+<p>Disable or remove in MO2.</p>
+
+<h2>Configuration</h2>
+<p>All settings in MCM under Standalone Companions. Per-companion tabs for individual control. Companions are enabled with auto-spawn by default.</p>
+
+<h2>Compatibility</h2>
+<p>Uses standard Anomaly companion system (axr_companions). Compatible with GAMMA and other companion mods. Does not modify base scripts.</p>
+
+<h2>Credits</h2>
+<p>DrakoMT and SaloEater for their support.<br />
+Demonized, Catspaw, Vintar0, RavenAscendant, xcvb, lizzardman, Aoldri, and Feel_Fried. Their work on the engine, modded exes, scripts, and tools shaped how Anomaly modding is done.</p>
+
+<h2>Development</h2>
+<p>Written against X-Ray Monolith engine source, Demonized exes source code, and Anomaly 1.5.3 unpacked gamedata.<br />
+Code patterns and engine usage validated against established work by reputable GAMMA modders (Demonized, Vintar0, RavenAscendant, xcvb).<br />
+The code is validated in real time by a multi-stage pipeline: luacheck, selene, tree-sitter AST analysis, contract rules, cross-file dependency resolution, cyclomatic complexity analysis, crash and vulnerability pattern detection, lua54 integration testing with X-Ray engine stubs, gitleaks secret scanning.<br />
+Full report in doc/test-report.log.</p>
+
+<h2>Usage and License</h2>
+<ul>
+<li>Modpacks: allowed and encouraged. Keep the readme and license files.</li>
+<li>Addons, patches, integrations: allowed. Credit "Standalone Companions by Damian Sirbu" visibly on your mod page.</li>
+<li>Full license in LICENSE file and on GitHub.</li>
+</ul>
+
+<h2>Versions</h2>
+
+<h3>1.0.3</h3>
+<ul>
+<li>xlibs 1.2.3 dependency.</li>
+</ul>
+
+<h3>1.0.2</h3>
+<ul>
+<li>Changed: xlibs dependency updated to 1.2.1</li>
+</ul>
+
+<h3>1.0.1</h3>
+<ul>
+<li>Fixed: dependency gate uses exact version match instead of string comparison</li>
+</ul>
+
+<h3>1.0.0</h3>
+<ul>
+<li>First release. Custom companions with dialog recruitment and permadeath.</li>
+<li>Added: Anna (Duty) - goodwill-based recruitment at Rostok Bar</li>
+<li>Added: Mila (Mercenary) - money-based recruitment at Dead City</li>
+<li>Added: permadeath with MCM debug reset</li>
+<li>Added: teleport (companion to player, player to companion, cross-level)</li>
+<li>Added: per-companion MCM configuration</li>
+<li>Added: dependency gate for xlibs</li>
+</ul>
