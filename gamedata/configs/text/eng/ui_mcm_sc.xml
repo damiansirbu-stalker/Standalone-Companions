@@ -26,7 +26,7 @@
 	</string>
 
 	<string id="ui_mcm_sc_version">
-		<text>%c[d_cyan]1.0.2</text>
+		<text>%c[d_cyan]1.0.3</text>
 	</string>
 
 	<string id="ui_mcm_sc_general_desc">
