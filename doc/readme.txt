@@ -1,6 +1,6 @@
 Standalone Companions: Custom companions for STALKER Anomaly, by Damian
-Latest: 1.0.3 (xlibs 1.2.3)
 GitHub: https://github.com/damiansirbu-stalker/Standalone-Companions
+Changelog: https://github.com/damiansirbu-stalker/Standalone-Companions/blob/main/doc/changelog
 
 No quest requirements. Just talk and recruit. Each companion has their own personality, location, and recruitment method. Permadeath keeps it real - if they die, they stay dead.
 
@@ -66,23 +66,3 @@ Usage and License:
   Modpacks: allowed and encouraged. Keep the readme and license files.
   Addons, patches, integrations: allowed. Credit "Standalone Companions by Damian Sirbu" visibly on your mod page.
   Full license in LICENSE file and on GitHub.
-
-Versions:
-
-1.0.3
-  xlibs 1.2.3 dependency.
-
-1.0.2
-  Changed: xlibs dependency updated to 1.2.1
-
-1.0.1
-  Fixed: dependency gate uses exact version match instead of string comparison
-
-1.0.0
-  First release. Custom companions with dialog recruitment and permadeath.
-  Added: Anna (Duty) - goodwill-based recruitment at Rostok Bar
-  Added: Mila (Mercenary) - money-based recruitment at Dead City
-  Added: permadeath with MCM debug reset
-  Added: teleport (companion to player, player to companion, cross-level)
-  Added: per-companion MCM configuration
-  Added: dependency gate for xlibs

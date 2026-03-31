@@ -1,0 +1,17 @@
+1.0.3
+  xlibs 1.2.3 dependency.
+
+1.0.2
+  Changed: xlibs dependency updated to 1.2.1
+
+1.0.1
+  Fixed: dependency gate uses exact version match instead of string comparison
+
+1.0.0
+  First release. Custom companions with dialog recruitment and permadeath.
+  Added: Anna (Duty) - goodwill-based recruitment at Rostok Bar
+  Added: Mila (Mercenary) - money-based recruitment at Dead City
+  Added: permadeath with MCM debug reset
+  Added: teleport (companion to player, player to companion, cross-level)
+  Added: per-companion MCM configuration
+  Added: dependency gate for xlibs

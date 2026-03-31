@@ -84,7 +84,7 @@ function on_mcm_load()
             id = "general",
             sh = true,
             gr = {
-                { id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_sc_title", size = {512, 50}, spacing = 20 },
+                { id = "title", type = "slide", link = "sc_mcm_banner", text = "ui_mcm_sc_title", size = {512, 50}, spacing = 20 },
                 { id = "desc", type = "desc", text = "ui_mcm_sc_general_desc" },
 
                 -- Debug
@@ -92,7 +92,8 @@ function on_mcm_load()
                 { id = "hdr_debug", type = "desc", text = "ui_mcm_sc_hdr_debug", clr = {255, 200, 200, 200} },
                 { id = "debug_log", type = "check", val = 1, def = false },
                 { id = "div_version", type = "line" },
-                { id = "version", type = "desc", text = "ui_mcm_sc_version", clr = {255, 0, 206, 209} },
+                { id = "version", type = "desc", text = "ui_mcm_sc_hdr_debug",
+                    ui_hook_functor = { zzz_sc_mcm.set_version_text }, clr = {255, 0, 206, 209} },
             },
         },
     }
@@ -103,7 +104,7 @@ function on_mcm_load()
             id = companion_id,
             sh = true,
             gr = {
-                { id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_sc_" .. companion_id .. "_title", size = {512, 50}, spacing = 20 },
+                { id = "title", type = "slide", link = "sc_mcm_banner", text = "ui_mcm_sc_" .. companion_id .. "_title", size = {512, 50}, spacing = 20 },
                 { id = "desc", type = "desc", text = "ui_mcm_sc_" .. companion_id .. "_desc" },
 
                 -- Enable/Disable
@@ -128,6 +129,10 @@ function on_mcm_load()
     end
 
     return { id = "sc", gr = gr }
+end
+
+function set_version_text(anchor, handlers)
+    handlers.desc:SetText(_sc_deps.get_version())
 end
 
 function on_game_start()
