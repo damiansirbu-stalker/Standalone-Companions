@@ -1,7 +1,6 @@
 next
-  Added: MCM banner
   Added: version logged at startup (mod + xlibs)
-  Changed: MCM version displayed from code, no longer hardcoded in XML
+  Changed: MCM refresh (banner, version from code, cream version color)
   Removed: dialog wrapper shims (Anna/Mila XML calls recruit functions directly)
 
 1.0.3
