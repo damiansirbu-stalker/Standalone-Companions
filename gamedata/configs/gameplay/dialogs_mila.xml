@@ -77,7 +77,7 @@
 </dialog>
 
 <dialog id="mila_hire_dialog">
-	<precondition>zzz_sc_dialogs.can_hire</precondition>
+	<precondition>zzz_sc_dialogs.can_recruit</precondition>
 	<phrase_list>
 		<phrase id="0">
 			<text>mila_hire_0</text>
@@ -89,13 +89,13 @@
 		</phrase>
 		<phrase id="2">
 			<text>mila_hire_2</text>
-			<action>zzz_sc_dialogs.do_hire</action>
+			<action>zzz_sc_dialogs.do_recruit</action>
 		</phrase>
 	</phrase_list>
 </dialog>
 
 <dialog id="mila_cannot_afford_dialog">
-	<precondition>zzz_sc_dialogs.cannot_afford</precondition>
+	<precondition>zzz_sc_dialogs.cannot_recruit</precondition>
 	<phrase_list>
 		<phrase id="0">
 			<text>mila_hire_0</text>

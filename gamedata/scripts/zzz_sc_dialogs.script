@@ -135,31 +135,3 @@ function do_leave(actor, npc)
     dialogs_axr_companion.remove_companions_from_squad(actor, npc)
 end
 
--- ==================== DIALOG XML WRAPPERS ====================
--- Aliases used by character-specific dialog XMLs (Anna, Mila)
-
--- Anna (goodwill-based)
-function can_join(actor, npc)
-    return can_recruit(actor, npc)
-end
-
-function cannot_join_relations(actor, npc)
-    return cannot_recruit(actor, npc)
-end
-
-function do_join(actor, npc)
-    dialogs_axr_companion.become_actor_companion(actor, npc)
-end
-
--- Mila (money-based)
-function can_hire(actor, npc)
-    return can_recruit(actor, npc)
-end
-
-function cannot_afford(actor, npc)
-    return cannot_recruit(actor, npc)
-end
-
-function do_hire(actor, npc)
-    return do_recruit(actor, npc)
-end

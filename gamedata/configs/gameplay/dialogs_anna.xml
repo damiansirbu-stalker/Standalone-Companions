@@ -77,7 +77,7 @@
 </dialog>
 
 <dialog id="anna_join_dialog">
-	<precondition>zzz_sc_dialogs.can_join</precondition>
+	<precondition>zzz_sc_dialogs.can_recruit</precondition>
 	<phrase_list>
 		<phrase id="0">
 			<text>anna_join_0</text>
@@ -85,13 +85,13 @@
 		</phrase>
 		<phrase id="1">
 			<text>anna_join_1</text>
-			<action>zzz_sc_dialogs.do_join</action>
+			<action>zzz_sc_dialogs.do_recruit</action>
 		</phrase>
 	</phrase_list>
 </dialog>
 
 <dialog id="anna_cannot_join_dialog">
-	<precondition>zzz_sc_dialogs.cannot_join_relations</precondition>
+	<precondition>zzz_sc_dialogs.cannot_recruit</precondition>
 	<phrase_list>
 		<phrase id="0">
 			<text>anna_cannot_join_0</text>
