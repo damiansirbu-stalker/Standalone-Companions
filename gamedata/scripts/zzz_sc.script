@@ -8,7 +8,7 @@ local data = zzz_sc_data
 
 local pairs, pcall, alife, level, db = pairs, pcall, alife, level, db
 local get_story_se_object, se_load_var, se_save_var = get_story_se_object, se_load_var, se_save_var
-local TeleportObject, ChangeLevel, CreateTimeEvent = TeleportObject, ChangeLevel, CreateTimeEvent
+local TeleportObject, ChangeLevel = TeleportObject, ChangeLevel
 local RegisterScriptCallback = RegisterScriptCallback
 local INVALID_LEVEL_VERTEX_ID = xconst.INVALID_LEVEL_VERTEX_ID
 
