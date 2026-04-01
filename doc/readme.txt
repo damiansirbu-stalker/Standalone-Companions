@@ -65,4 +65,5 @@ Full report in doc/test-report.log.
 Usage and License:
   Modpacks: allowed and encouraged. Keep the readme and license files.
   Addons, patches, integrations: allowed. Credit "Standalone Companions by Damian Sirbu" visibly on your mod page.
+  Reproducing the implementation in other software: not allowed, even with credit.
   Full license in LICENSE file and on GitHub.
