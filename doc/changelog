@@ -1,7 +1,8 @@
-1.0.4
+next
   Added: MCM banner
   Added: version logged at startup (mod + xlibs)
   Changed: MCM version displayed from code, no longer hardcoded in XML
+  Removed: dialog wrapper shims (Anna/Mila XML calls recruit functions directly)
 
 1.0.3
   xlibs 1.2.3 dependency.
