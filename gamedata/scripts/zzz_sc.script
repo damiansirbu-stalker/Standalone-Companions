@@ -6,7 +6,7 @@ local data = zzz_sc_data
 
 -- ==================== CACHED GLOBALS ====================
 
-local pairs, pcall, alife, level, db = pairs, pcall, alife, level, db
+local pairs, alife, level, db = pairs, alife, level, db
 local get_story_se_object, se_load_var, se_save_var = get_story_se_object, se_load_var, se_save_var
 local TeleportObject, ChangeLevel = TeleportObject, ChangeLevel
 local RegisterScriptCallback = RegisterScriptCallback
