@@ -50,11 +50,12 @@ Configuration:
 All settings in MCM under Standalone Companions. Per-companion tabs for individual control. Companions are enabled with auto-spawn by default.
 
 Compatibility:
+Compatible with all modded exe variants (Demonized, AOE, MT).
 Uses standard Anomaly companion system (axr_companions). Compatible with GAMMA and other companion mods. Does not modify base scripts.
 
 Credits:
-DrakoMT and SaloEater for their support.
-Demonized, Catspaw, Vintar0, RavenAscendant, xcvb, lizzardman, Aoldri, and Feel_Fried. Their work on the engine, modded exes, scripts, and tools shaped how Anomaly modding is done.
+Stalker_Boss - Russian translation
+Altogolik - support, ideas, source materials
 
 Development:
 Written against X-Ray Monolith engine source, Demonized exes source code, and Anomaly 1.5.3 unpacked gamedata.
