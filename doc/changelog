@@ -3,6 +3,8 @@ next
   Added: version displayed at startup (mod + xlibs)
   Changed: MCM visual refresh
   Removed: dialog wrapper shims (Anna/Mila XML calls recruit functions directly)
+  Compatibility:
+    Removed: modded exes requirement. Works with vanilla Anomaly 1.5.3, Demonized, Demonized MT, AOEngine. Tested with GAMMA, EFP, Zona.
 
 1.0.3
   xlibs 1.2.3 dependency.
